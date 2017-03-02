@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.util.logging.Logger;
+
 import kr.co.hs.app.HsActivity;
 import kr.co.hs.app.OnRequestPermissionResult;
 import kr.co.hs.content.HsPermissionChecker;
@@ -16,6 +18,7 @@ import kr.co.hs.contentshelper.mediastore.AudioContents;
 import kr.co.hs.contentshelper.mediastore.AudioProvider;
 import kr.co.hs.contentshelper.mediastore.ImageContents;
 import kr.co.hs.contentshelper.mediastore.ImageProvider;
+import kr.co.hs.contentshelper.mediastore.ImageProviderCursor;
 import kr.co.hs.contentshelper.mediastore.ImageThumbnailContents;
 import kr.co.hs.contentshelper.mediastore.ImageThumbnailProvider;
 import kr.co.hs.contentshelper.mediastore.VideoContents;
@@ -42,6 +45,7 @@ public class SampleActivity extends HsActivity {
             @Override
             public void onResult(int i, @NonNull String[] strings, @NonNull int[] ints, boolean b) {
                 if(b){
+                    /*)
                     ImageProvider imageProvider = new ImageProvider(getApplicationContext(), ImageProvider.MODE_EXTERNAL);
                     ImageContents[] imageContents = imageProvider.getContents();
 
@@ -73,6 +77,14 @@ public class SampleActivity extends HsActivity {
                         String path = idx.getDataPath();
                         AudioArtProvider audioArtProvider = new AudioArtProvider(getContext(), AudioArtProvider.MODE_EXTERNAL);
                         AudioArtContents audioArtContents = audioArtProvider.getThumbnailFromMediaId(idx.getAlbumId());
+                        Log.d("a","a");
+                    }
+                    */
+
+
+                    ImageProviderCursor cursor = new ImageProviderCursor(getContext());
+                    for(int idx=0;idx<cursor.getCount();idx++){
+                        ImageContents contents = cursor.getContent(idx);
                         Log.d("a","a");
                     }
 
