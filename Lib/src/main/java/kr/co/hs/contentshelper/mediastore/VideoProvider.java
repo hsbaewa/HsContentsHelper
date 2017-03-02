@@ -87,12 +87,7 @@ public class VideoProvider extends Provider<VideoContents> {
             VideoContents[] result = new VideoContents[cursor.getCount()];
             for(int i=0;i<result.length;i++){
                 cursor.moveToPosition(i);
-                long id = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns._ID));
-                String dataPath = cursor.getString(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DATA));
-                long addDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DATE_ADDED));
-                long modDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DATE_MODIFIED));
-                long takenDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DATE_TAKEN));
-                result[i] = new VideoContents(id, dataPath, addDate, modDate, takenDate);
+                result[i] = new VideoContents(cursor);
             }
             return result;
         }catch (Exception e){
@@ -113,12 +108,7 @@ public class VideoProvider extends Provider<VideoContents> {
             if(cursor == null || !cursor.moveToFirst())
                 return null;
 
-            String dataPath = cursor.getString(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DATA));
-            long addDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DATE_ADDED));
-            long modDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DATE_MODIFIED));
-            long takedDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DATE_TAKEN));
-
-            return new VideoContents(id, dataPath, addDate, modDate, takedDate);
+            return new VideoContents(cursor);
         }catch (Exception e){
             e.printStackTrace();
             return null;

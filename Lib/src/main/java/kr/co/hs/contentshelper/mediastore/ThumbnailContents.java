@@ -1,5 +1,7 @@
 package kr.co.hs.contentshelper.mediastore;
 
+import android.database.Cursor;
+
 /**
  * 생성된 시간 2017-03-02, Bae 에 의해 생성됨
  * 프로젝트 이름 : HsContentsHelper
@@ -7,6 +9,10 @@ package kr.co.hs.contentshelper.mediastore;
  */
 
 class ThumbnailContents extends Contents {
+    public ThumbnailContents(Cursor cursor) {
+        super(cursor);
+    }
+
     public ThumbnailContents(long id) {
         super(id);
     }

@@ -98,13 +98,7 @@ public class ImageThumbnailProvider extends ThumbnailProvider<ImageThumbnailCont
             ImageThumbnailContents[] result = new ImageThumbnailContents[cursor.getCount()];
             for(int i=0;i<result.length;i++){
                 cursor.moveToPosition(i);
-                long id = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Thumbnails._ID));
-                String dataPath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Thumbnails.DATA));
-                String thumbData = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Thumbnails.THUMB_DATA));
-                if(dataPath == null || thumbData == null || !dataPath.equals(thumbData)){
-                    Log.d("a","a");
-                }
-                result[i] = new ImageThumbnailContents(id, dataPath);
+                result[i] = new ImageThumbnailContents(cursor);
             }
             return result;
         }catch (Exception e){
@@ -125,12 +119,7 @@ public class ImageThumbnailProvider extends ThumbnailProvider<ImageThumbnailCont
             if(cursor == null || !cursor.moveToFirst())
                 return null;
 
-            String dataPath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Thumbnails.DATA));
-            String thumbData = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Thumbnails.THUMB_DATA));
-            if(dataPath == null || thumbData == null || !dataPath.equals(thumbData)){
-                Log.d("a","a");
-            }
-            return new ImageThumbnailContents(id, dataPath);
+            return new ImageThumbnailContents(cursor);
         }catch (Exception e){
             e.printStackTrace();
             return null;
@@ -149,18 +138,7 @@ public class ImageThumbnailProvider extends ThumbnailProvider<ImageThumbnailCont
             if(cursor == null || !cursor.moveToFirst())
                 return null;
 
-            long id = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Thumbnails._ID));
-            String dataPath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Thumbnails.DATA));
-            String thumbData = null;
-            try{
-                thumbData = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Thumbnails.THUMB_DATA));
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            if(dataPath == null || thumbData != null){
-                Log.d("a","a");
-            }
-            return new ImageThumbnailContents(id, dataPath);
+            return new ImageThumbnailContents(cursor);
         }catch (Exception e){
             e.printStackTrace();
             return null;

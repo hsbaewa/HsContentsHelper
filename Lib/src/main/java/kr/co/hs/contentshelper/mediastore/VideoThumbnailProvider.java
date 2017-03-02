@@ -98,9 +98,7 @@ public class VideoThumbnailProvider extends ThumbnailProvider<VideoThumbnailCont
             VideoThumbnailContents[] result = new VideoThumbnailContents[cursor.getCount()];
             for(int i=0;i<result.length;i++){
                 cursor.moveToPosition(i);
-                long id = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Thumbnails._ID));
-                String dataPath = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Thumbnails.DATA));
-                result[i] = new VideoThumbnailContents(id, dataPath);
+                result[i] = new VideoThumbnailContents(cursor);
             }
             return result;
         }catch (Exception e){
@@ -120,8 +118,7 @@ public class VideoThumbnailProvider extends ThumbnailProvider<VideoThumbnailCont
         try{
             if(cursor == null || !cursor.moveToFirst())
                 return null;
-            String dataPath = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Thumbnails.DATA));
-            return new VideoThumbnailContents(id, dataPath);
+            return new VideoThumbnailContents(cursor);
         }catch (Exception e){
             e.printStackTrace();
             return null;
@@ -139,9 +136,7 @@ public class VideoThumbnailProvider extends ThumbnailProvider<VideoThumbnailCont
         try{
             if(cursor == null || !cursor.moveToFirst())
                 return null;
-            long id = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Thumbnails._ID));
-            String dataPath = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Thumbnails.DATA));
-            return new VideoThumbnailContents(id, dataPath);
+            return new VideoThumbnailContents(cursor);
         }catch (Exception e){
             e.printStackTrace();
             return null;

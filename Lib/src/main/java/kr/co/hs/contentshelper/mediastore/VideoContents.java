@@ -1,5 +1,6 @@
 package kr.co.hs.contentshelper.mediastore;
 
+import android.database.Cursor;
 import android.provider.MediaStore;
 
 /**
@@ -10,6 +11,16 @@ import android.provider.MediaStore;
 
 public class VideoContents extends MediaContents {
     private long mTakenDate = 0;
+
+    public VideoContents(Cursor cursor) {
+        super(
+                cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns._ID)),
+                cursor.getString(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DATA)),
+                cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DATE_ADDED)),
+                cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DATE_MODIFIED))
+        );
+        this.mTakenDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DATE_TAKEN));
+    }
 
     public VideoContents(long id) {
         super(id);

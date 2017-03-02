@@ -96,9 +96,7 @@ public class AudioArtProvider extends ThumbnailProvider<AudioArtContents>{
 
             for(int i=0;i<result.length;i++){
                 cursor.moveToPosition(i);
-                long id = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Albums._ID));
-                String dataPath = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.AlbumColumns.ALBUM_ART));
-                result[i] = new AudioArtContents(id, dataPath);
+                result[i] = new AudioArtContents(cursor);
             }
             return result;
         }catch (Exception e){
@@ -118,9 +116,7 @@ public class AudioArtProvider extends ThumbnailProvider<AudioArtContents>{
             if(cursor == null || !cursor.moveToFirst())
                 return null;
 
-            String dataPath = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.AlbumColumns.ALBUM_ART));
-            return new AudioArtContents(id, dataPath);
-
+            return new AudioArtContents(cursor);
         }catch (Exception e){
             e.printStackTrace();
             return null;

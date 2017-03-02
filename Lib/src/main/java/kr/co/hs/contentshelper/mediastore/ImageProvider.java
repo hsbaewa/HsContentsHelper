@@ -88,12 +88,7 @@ public class ImageProvider extends Provider<ImageContents>{
             ImageContents[] result = new ImageContents[cursor.getCount()];
             for(int i=0;i<result.length;i++){
                 cursor.moveToPosition(i);
-                long id = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.ImageColumns._ID));
-                String dataPath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA));
-                long addDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATE_ADDED));
-                long modDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATE_MODIFIED));
-                long takedDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATE_TAKEN));
-                result[i] = new ImageContents(id, dataPath, addDate, modDate, takedDate);
+                result[i] = new ImageContents(cursor);
             }
             return result;
         }catch (Exception e){
@@ -113,13 +108,7 @@ public class ImageProvider extends Provider<ImageContents>{
         try{
             if(cursor == null || !cursor.moveToFirst())
                 return null;
-
-            String dataPath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA));
-            long addDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATE_ADDED));
-            long modDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATE_MODIFIED));
-            long takedDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATE_TAKEN));
-
-            return new ImageContents(id, dataPath, addDate, modDate, takedDate);
+            return new ImageContents(cursor);
         }catch (Exception e){
             e.printStackTrace();
             return null;

@@ -99,12 +99,7 @@ public class AudioProvider extends Provider<AudioContents> {
             AudioContents[] result = new AudioContents[cursor.getCount()];
             for(int i=0;i<result.length;i++){
                 cursor.moveToPosition(i);
-                long id = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.AudioColumns._ID));
-                String dataPath = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA));
-                long addedDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.DATE_ADDED));
-                long modDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.DATE_MODIFIED));
-                long albumId = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
-                result[i] = new AudioContents(id, dataPath, addedDate, modDate, albumId);
+                result[i] = new AudioContents(cursor);
             }
             return result;
         }catch (Exception e){
@@ -124,11 +119,7 @@ public class AudioProvider extends Provider<AudioContents> {
             if(cursor == null || !cursor.moveToFirst())
                 return null;
 
-            String dataPath = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA));
-            long addedDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.DATE_ADDED));
-            long modDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.DATE_MODIFIED));
-            long albumId = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
-            return new AudioContents(id, dataPath, addedDate, modDate, albumId);
+            return new AudioContents(cursor);
         }catch (Exception e){
             e.printStackTrace();
             return null;
