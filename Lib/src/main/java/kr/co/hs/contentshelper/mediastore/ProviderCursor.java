@@ -10,7 +10,7 @@ import android.net.Uri;
  * 패키지명 : kr.co.hs.contentshelper.mediastore
  */
 
-abstract class ProviderCursor<C extends Contents> {
+public abstract class ProviderCursor<C extends Contents> {
     private Context mContext;
     private Cursor mCursor;
 
