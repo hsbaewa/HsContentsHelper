@@ -8,7 +8,7 @@ import android.database.Cursor;
  * 패키지명 : kr.co.hs.contentshelper.mediastore
  */
 
-class Contents {
+public class Contents {
     private long mId;
     private String mDataPath;
 
